@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Album
+comment0.text=\ <description\ of\ class\ Album>\r\n
+comment1.params=art\ pub\ gen
+comment1.target=Album(java.lang.String,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ the\ class;\ "Album"\r\n
+comment2.params=
+comment2.target=java.lang.String\ getArtist()
+comment2.text=\r\n\ This\ object\ will\ return\ the\ Artist\ of\ the\ album\ that\ was\ selected\ in\ the\ GUI\ \r\n
+comment3.params=
+comment3.target=int\ getYear()
+comment3.text=\r\n\ This\ object\ will\ return\ the\ Year\ the\ album\ was\ released\ for\ the\ one\ that\ was\ selected\ in\ the\ GUI\r\n
+comment4.params=
+comment4.target=java.lang.String\ getGenre()
+comment4.text=\r\n\ This\ object\ will\ return\ the\ Genre\ of\ the\ album\ that\ was\ selected\ in\ the\ GUI\ \r\n
+numComments=5

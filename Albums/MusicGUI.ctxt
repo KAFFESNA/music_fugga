@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=MusicGUI
+comment0.text=\ <description\ of\ class\ MusicGUI>\r\n
+comment1.params=
+comment1.target=MusicGUI()
+comment2.params=
+comment2.target=void\ newAlbum()
+comment2.text=\r\n\ This\ class\ will\ create\ a\ new\ album\ and\ then\ call\ a\ method\ to\ put\ the\ info\ in\ the\ hashmap\r\n
+comment3.params=name
+comment3.target=void\ searchAlbum(java.lang.String)
+comment3.text=\r\n\ This\ class\ will\ let\ the\ user\ search\ for\ an\ album\ by\ name\r\n
+comment4.params=args
+comment4.target=void\ main(java.lang.String[])
+numComments=5
