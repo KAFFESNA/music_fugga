@@ -50,7 +50,37 @@ public class Playlist{
         String art = albumList.get(name).getArtist();
         int pub = albumList.get(name).getYear();
         String gen = albumList.get(name).getGenre();
-        UI.println("The "+ gen + " Album " + name + " was released in " + pub );
+        //UI.println("The "+ gen + " Album " + name + " was released in " + pub );
+        UI.clearText();
+        UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen);
+    }
+    
+    /**
+     * This class will grab all the albums with a specified genre
+     */
+    public void printGenre(String genre){
+        UI.clearText();
+        for (String name : albumList.keySet()){
+            String gen = albumList.get(name).getGenre();
+            if (genre.equals(gen)){
+                int pub = albumList.get(name).getYear();
+                String art = albumList.get(name).getArtist();
+                UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\n");
+            } 
+        }
+    }
+    
+    /**
+     * This class will grab all information about all of the albums
+     */
+    public void printAll(){
+        UI.clearText();
+        for (String name : albumList.keySet()){
+            String art = albumList.get(name).getArtist();
+            int pub = albumList.get(name).getYear();
+            String gen = albumList.get(name).getGenre();
+            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\n");
+        }
     }
 }
 

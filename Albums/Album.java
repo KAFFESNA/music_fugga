@@ -1,7 +1,7 @@
 /* Based on the ecs 100 template
- * Code for ??
- * Name:
- * Date:
+ * Code for album rating software
+ * Name: Nathan Kaffes
+ * Date: 24/07/20
  */
 
 
