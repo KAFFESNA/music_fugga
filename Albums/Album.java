@@ -18,14 +18,16 @@ public class Album {
     private String artist;
     private int year;
     private String genre;
+    private int rating;
     
     /**
      * Constructor for objects of the class; "Album"
      */
-    public Album(String art, int pub, String gen){
+    public Album(String art, int pub, String gen, int rat){
         this.artist = art;
         this.year = pub;
         this.genre = gen;
+        this.rating = rat;
     }
 
     /**
@@ -47,6 +49,13 @@ public class Album {
      */
     public String getGenre(){
         return this.genre;
+    }
+    
+    /**
+     * This object will return the Rating of the album that was selected in the GUI 
+     */
+    public int getRating(){
+        return this.rating;
     }
 }
 

@@ -17,17 +17,23 @@ public class MusicGUI{
     private Playlist music = new Playlist();
     private String chosenName;
     private String chosenGenre;
+    private static int STARTRATE = 0;
     /**
      * initialises the GUI and sets all of the buttons
      */
     public MusicGUI(){
         UI.initialise();
+        //button to add an album
         UI.addButton("Add Album", this::newAlbum);
+        //text field to input an album name, button is below the text field
         UI.addTextField("Search", this::setName);
         UI.addButton("Search", this::searchAlbum);
+        //text field to input an album genre, button is below the text field
         UI.addTextField("Search by Genre", this::setGenre);
         UI.addButton("Search by Genre", this::searchGenre);
+        //button to search for all albums in the hashmap
         UI.addButton("Search All", this::searchAll);
+        UI.addButton("Rate Album", this::rateAlbum);
         UI.addButton("Quit", UI::quit);
     }
     
@@ -42,8 +48,9 @@ public class MusicGUI{
         String art = UI.askString("Please the Album's Artist's name: ");
         int pub = UI.askInt("Please enter the Album's Year of Publication: ");
         String gen = UI.askString("Please enter the Album's Genre: ");
+        int rat = STARTRATE;
         //calls the addAlbum method to put the album in the hashmap
-        music.addAlbum(name, art, pub, gen);
+        music.addAlbum(name, art, pub, gen, rat);
         UI.println("\nName: " + name + "\nArtist: " + art + "\nYear: " + pub + "\nGenre: " + gen);
     }
     
@@ -80,6 +87,13 @@ public class MusicGUI{
      */
     public void searchAll(){
         music.printAll();
+    }
+    
+    /**
+     * This method will let the user rate an album based on their search
+     */
+    public void rateAlbum(){
+        music.albumRating();
     }
     
     /**
