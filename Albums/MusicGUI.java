@@ -11,25 +11,25 @@ import java.io.*;
 import java.awt.Color;
 
 
-/** <description of class MusicGUI>
+/** 
+ * Will create the GUI buttons and then link to other classes to carry out processes
  */
 public class MusicGUI{
     private Playlist music = new Playlist();
-    private String chosenName;
-    private String chosenGenre;
+    //these variables store the text fields information for the 
+    private String chosenEntry;
+    //This constant is the set rating in the beginning, it is changeable with the Rating button
     private static int STARTRATE = 0;
     /**
-     * initialises the GUI and sets all of the buttons
+     * Initialises the GUI and sets all of the buttons
      */
     public MusicGUI(){
         UI.initialise();
         //button to add an album
         UI.addButton("Add Album", this::newAlbum);
-        //text field to input an album name, button is below the text field
-        UI.addTextField("Search", this::setName);
-        UI.addButton("Search", this::searchAlbum);
-        //text field to input an album genre, button is below the text field
-        UI.addTextField("Search by Genre", this::setGenre);
+        //text field to input an album name, button is below the text field, you can also click genre button for a search by genre feature
+        UI.addTextField("Search", this::setEntry);
+        UI.addButton("Search by Name", this::searchAlbum);
         UI.addButton("Search by Genre", this::searchGenre);
         //button to search for all albums in the hashmap
         UI.addButton("Search All", this::searchAll);
@@ -38,7 +38,7 @@ public class MusicGUI{
     }
     
     /**
-     * This method will create a new album and then call a method to put the info in the hashmap
+     * Will create a new album and then call a method to put the info in the hashmap
      */
     public void newAlbum(){
         //clears the output field
@@ -55,42 +55,35 @@ public class MusicGUI{
     }
     
     /**
-     * This method stores the text field's string in a variable
+     * Stores the text field's string in a variable
      */
-    public void setName(String name){
-        chosenName = name;
+    public void setEntry(String entry){
+        chosenEntry = entry;
     }
     
     /**
-     * This method will let the user search for an album by name
+     * Will let the user search for an album by name
      */
     public void searchAlbum(){
-        music.printChosen(chosenName);
+        music.printChosen(chosenEntry);
     }
-    
+
     /**
-     * This method stores the text field's string in a variable
-     */
-    public void setGenre(String genre){
-        chosenGenre = genre;
-    }
-    
-    /**
-     * This method will let the user search for an album or albums by genre
+     * Will let the user search for an album or albums by genre
      */
     public void searchGenre(){
-        music.printGenre(chosenGenre);
+        music.printGenre(chosenEntry);
     }
     
     /**
-     * This method will let the user search for all the albums in the hashmap
+     * Will let the user search for all the albums in the hashmap
      */
     public void searchAll(){
         music.printAll();
     }
     
     /**
-     * This method will let the user rate an album based on their search
+     * Will let the user rate an album based on their search
      */
     public void rateAlbum(){
         music.albumRating();
