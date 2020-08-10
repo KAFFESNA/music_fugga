@@ -11,7 +11,7 @@ import java.io.*;
 import java.awt.Color;
 
 
-/** <description of class Album>
+/** Will let the user grab information for specific albums from the hashmap
  */
 public class Album {
     //Creating the different variables to store in the hashmap
@@ -19,6 +19,8 @@ public class Album {
     private int year;
     private String genre;
     private int rating;
+    private String[] ratingStrings = {"Not Yet Rated", "Bad", "Average", "Good"};
+    private String ratString;
     
     /**
      * Constructor for objects of the class; "Album"
@@ -31,31 +33,47 @@ public class Album {
     }
 
     /**
-     * This object will return the Artist of the album that was selected in the GUI 
+     * Will return the Artist of the album that was selected in the GUI 
      */
     public String getArtist(){
         return this.artist;
     }
     
     /**
-     * This object will return the Year the album was released for the one that was selected in the GUI
+     * Will return the Year the album was released for the one that was selected in the GUI
      */
     public int getYear(){
         return this.year;
     }
     
     /**
-     * This object will return the Genre of the album that was selected in the GUI 
+     * Will return the Genre of the album that was selected in the GUI 
      */
     public String getGenre(){
         return this.genre;
     }
     
     /**
-     * This object will return the Rating of the album that was selected in the GUI 
+     * Will return the Rating of the album that was selected in the GUI 
      */
     public int getRating(){
         return this.rating;
+    }
+    
+    /**
+     * Will update rating for specific album
+     */
+    public int updateRating(int newRating){
+        this.rating = newRating;
+        return this.rating;
+    }
+    
+    /**
+     * Will assign a string to a rating
+     */
+    public String assignRate(int rat){
+        ratString = ratingStrings[rat];
+        return ratString;
     }
 }
 

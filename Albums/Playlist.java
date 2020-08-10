@@ -13,11 +13,11 @@ import java.awt.Color;
 import java.util.HashMap;
 
 /** 
- * This class will instantiate the hashmap that will store the album information
+ * Instantiates the hashmap that will store the album information
  * This class will also house different processes like searching or adding
  * 
  * @author NZK 
- * @version 0.1
+ * @version 0.2
  */
 public class Playlist{
     //creating the hashmap
@@ -34,7 +34,7 @@ public class Playlist{
     }
     
     /**
-     * This method will add an album to the hashmap
+     * Will add an album to the hashmap
      * @param name  The name of the album
      * @param art   The artist for the album
      * @param pub   The year of publication
@@ -46,23 +46,26 @@ public class Playlist{
     }
     
     /**
-     * This method will find information on the album based on the key
+     * Will find information on the album based on the key
      */
     public void printChosen(String name){
         UI.clearText();
         try {
+            //Grabs the information stored in the hashmap for this key
             String art = albumList.get(name).getArtist();
             int pub = albumList.get(name).getYear();
             String gen = albumList.get(name).getGenre();
+            int rat = albumList.get(name).getRating();
+            String ratString = albumList.get(name).assignRate(rat);
             //UI.println("The "+ gen + " Album " + name + " was released in " + pub );
-            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen);
+            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
         } catch (Exception wrongName) {
             UI.println("That album is not in our database");
         }
     }
     
     /**
-     * This method will grab all the albums with a specified genre
+     * Will grab all the albums with a specified genre
      */
     public void printGenre(String genre){
         counter = 0;
@@ -73,7 +76,9 @@ public class Playlist{
                 counter += 1;
                 int pub = albumList.get(name).getYear();
                 String art = albumList.get(name).getArtist();
-                UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\n");
+                int rat = albumList.get(name).getRating();
+                String ratString = albumList.get(name).assignRate(rat);
+                UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
             }
         }
         if (counter == 0){
@@ -82,7 +87,7 @@ public class Playlist{
     }
     
     /**
-     * This method will grab all information about all of the albums
+     * Will grab all information about all of the albums
      */
     public void printAll(){
         UI.clearText();
@@ -90,20 +95,43 @@ public class Playlist{
             String art = albumList.get(name).getArtist();
             int pub = albumList.get(name).getYear();
             String gen = albumList.get(name).getGenre();
-            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\n");
+            int rat = albumList.get(name).getRating();
+            String ratString = albumList.get(name).assignRate(rat);
+            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
         }
     }
     
     /**
-     * This method will let the user rate an album
+     * Will let the user rate an album
      */
     public void albumRating(){
         UI.clearText();
         String rateName = UI.askString("What Album would you like to Rate? ");
         try {
             int rat = albumList.get(rateName).getRating();
-            UI.println(rateName + " currently has a rating of: " + rat);
+            if (rat == 0){
+                UI.println(rateName + " is currently not yet rated");
+            } else {
+                UI.println(rateName + " currently has a rating of: " + rat + "/3 stars.");
+            }
+            try {
+                int newRating = UI.askInt("How many stars would you rate " + rateName + " ? (1-3 stars) ");
+                if (newRating < 0 || newRating > 3) {
+                    throw new ArithmeticException();
+                } else {
+                    newRating = albumList.get(rateName).updateRating(newRating);
+                    String ratString = albumList.get(rateName).assignRate(newRating);
+                    UI.println(rateName + "'s rating has changed to: " + newRating + " - " + ratString);
+                }
+            } catch (ArithmeticException incorrectStars) {
+                //Runs if the user enters a number out of range
+                UI.println("Please enter a number between 1 - 3");
+            } catch (Exception invalidStars) {
+                //Runs if the user enters anything other than a number
+                UI.println("Please input a number");
+            }
         } catch (Exception albumMissing) {
+            //Runs if user inputs an album that does not exist in the database
             UI.println("That album is not in our database");
         }
     }
