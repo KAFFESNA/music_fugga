@@ -18,8 +18,11 @@ public class MusicGUI{
     private Playlist music = new Playlist();
     //these variables store the text fields information for the 
     private String chosenEntry;
+    private double chosenSlide;
+    private final double RATEMIN = 0;
+    private final double RATEMAX = 3;
     //This constant is the set rating in the beginning, it is changeable with the Rating button
-    private static int STARTRATE = 0;
+    private final int STARTRATE = 0;
     /**
      * Initialises the GUI and sets all of the buttons
      */
@@ -31,6 +34,8 @@ public class MusicGUI{
         UI.addTextField("Search", this::setEntry);
         UI.addButton("Search by Name", this::searchAlbum);
         UI.addButton("Search by Genre", this::searchGenre);
+        UI.addSlider("Rating", RATEMIN, RATEMAX, this::storeSlider);
+        UI.addButton("Search by Rating", this::searchRating);
         //button to search for all albums in the hashmap
         UI.addButton("Search All", this::searchAll);
         UI.addButton("Rate Album", this::rateAlbum);
@@ -62,6 +67,13 @@ public class MusicGUI{
     }
     
     /**
+     * Stores the sliders double in a variable
+     */
+    public void storeSlider(double slideEntry){
+        chosenSlide = slideEntry;
+    }
+    
+    /**
      * Will let the user search for an album by name
      */
     public void searchAlbum(){
@@ -73,6 +85,13 @@ public class MusicGUI{
      */
     public void searchGenre(){
         music.printGenre(chosenEntry);
+    }
+    
+    /**
+     * Will let the user search for an album or albums by stored rating
+     */
+    public void searchRating(){
+        music.printRating(chosenSlide);
     }
     
     /**

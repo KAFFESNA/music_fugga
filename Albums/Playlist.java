@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class Playlist{
     //creating the hashmap
     private HashMap<String, Album> albumList;
-    private int counter;
+    private int albumCounter;
     /**
      * Constructor for objects in the class; "Albums"
      */
@@ -68,12 +68,13 @@ public class Playlist{
      * Will grab all the albums with a specified genre
      */
     public void printGenre(String genre){
-        counter = 0;
+        albumCounter = 0;
         UI.clearText();
         for (String name : albumList.keySet()){
             String gen = albumList.get(name).getGenre();
             if (genre.equals(gen)){
-                counter += 1;
+                //the counter is used to determine whether or not any albums were returned
+                albumCounter += 1;
                 int pub = albumList.get(name).getYear();
                 String art = albumList.get(name).getArtist();
                 int rat = albumList.get(name).getRating();
@@ -81,8 +82,37 @@ public class Playlist{
                 UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
             }
         }
-        if (counter == 0){
+        if (albumCounter == 0){
             UI.println("There were no albums with that genre in our database");
+        }
+    }
+    
+    /**
+     * Will grab all albums by rating choice
+     */
+    public void printRating(double rating){
+        albumCounter = 0;
+        UI.clearText();
+        try {
+            for (String name : albumList.keySet()){
+                int rat = albumList.get(name).getRating();
+                if (rating == rat){
+                    //the counter is used to determine whether or not any albums were returned
+                    albumCounter += 1;
+                    int pub = albumList.get(name).getYear();
+                    String art = albumList.get(name).getArtist();
+                    String gen = albumList.get(name).getGenre();
+                    String ratString = albumList.get(name).assignRate(rat);
+                    UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
+                }
+            }   
+            } catch (ArithmeticException ratingRange) {
+                UI.println("Please enter a number between 0 - 3");
+            } catch (Exception missingInteger) {
+                UI.println("Please enter a number");
+            }
+        if (albumCounter == 0){
+            UI.println("There were no albums with that rating stored in our database");
         }
     }
     
@@ -96,7 +126,9 @@ public class Playlist{
             int pub = albumList.get(name).getYear();
             String gen = albumList.get(name).getGenre();
             int rat = albumList.get(name).getRating();
+            // assigns a string to the rating depending on the amount
             String ratString = albumList.get(name).assignRate(rat);
+            //printing this in one line saves space but still looks clean on output
             UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
         }
     }
