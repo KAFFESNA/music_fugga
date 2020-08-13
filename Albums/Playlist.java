@@ -79,7 +79,7 @@ public class Playlist{
                 String art = albumList.get(name).getArtist();
                 int rat = albumList.get(name).getRating();
                 String ratString = albumList.get(name).assignRate(rat);
-                UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
+                UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString + "\n");
             }
         }
         if (albumCounter == 0){
@@ -129,7 +129,7 @@ public class Playlist{
             // assigns a string to the rating depending on the amount
             String ratString = albumList.get(name).assignRate(rat);
             //printing this in one line saves space but still looks clean on output
-            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
+            UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString + "\n");
         }
     }
     
