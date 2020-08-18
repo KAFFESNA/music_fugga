@@ -21,6 +21,8 @@ public class MusicGUI{
     private double chosenSlide;
     private final double RATEMIN = 0;
     private final double RATEMAX = 3;
+    private final int CANVASWIDTH = 1000;
+    private final int CANVASHEIGHT = 500;
     //This constant is the set rating in the beginning, it is changeable with the Rating button
     private final int STARTRATE = 0;
     /**
@@ -28,6 +30,7 @@ public class MusicGUI{
      */
     public MusicGUI(){
         UI.initialise();
+        UI.setWindowSize(CANVASWIDTH, CANVASHEIGHT);
         //button to add an album
         UI.addButton("Add Album", this::newAlbum);
         //text field to input an album name, button is below the text field, you can also click genre button for a search by genre feature
@@ -40,6 +43,7 @@ public class MusicGUI{
         UI.addButton("Search All", this::searchAll);
         UI.addButton("Rate Album", this::rateAlbum);
         UI.addButton("Quit", UI::quit);
+        UI.setDivider(0.0);     // must come after setting up buttons etc.
     }
     
     /**

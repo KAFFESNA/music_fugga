@@ -9,6 +9,7 @@ import ecs100.*;
 import java.util.*;
 import java.io.*;
 import java.awt.Color;
+import java.util.ArrayList;
 //importing the hashmap lets us use it to store data
 import java.util.HashMap;
 
@@ -17,12 +18,20 @@ import java.util.HashMap;
  * This class will also house different processes like searching or adding
  * 
  * @author NZK 
- * @version 0.2
+ * @version 0.3
  */
 public class Playlist{
     //creating the hashmap
     private HashMap<String, Album> albumList;
+    ArrayList<String> albumKeys = new ArrayList<String>();
     private int albumCounter;
+    private int printCounter;
+    private boolean endPrint;
+    //constants for the rating systems bounds
+    private final int INITIALRATE = 0;
+    private final int MINRATE = 1;
+    private final int MAXRATE = 3;
+    private final int PRINTSTRING = 100;
     /**
      * Constructor for objects in the class; "Albums"
      */
@@ -68,10 +77,13 @@ public class Playlist{
      * Will grab all the albums with a specified genre
      */
     public void printGenre(String genre){
+        //creates an album counter to determine whether or not any albums were returned
         albumCounter = 0;
+        //clears the shell of any text for ease of use
         UI.clearText();
         for (String name : albumList.keySet()){
             String gen = albumList.get(name).getGenre();
+            //for every key in the hashmap, the loop checks whether the genre matches the one entered, if any are returned, they will be printed out.
             if (genre.equals(gen)){
                 //the counter is used to determine whether or not any albums were returned
                 albumCounter += 1;
@@ -82,6 +94,7 @@ public class Playlist{
                 UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString + "\n");
             }
         }
+        //if no albums are returned, this will run, displaying to the user that indeed none were returned
         if (albumCounter == 0){
             UI.println("There were no albums with that genre in our database");
         }
@@ -96,6 +109,7 @@ public class Playlist{
         try {
             for (String name : albumList.keySet()){
                 int rat = albumList.get(name).getRating();
+                //will check if any of the albums in the hashmap match the chosen rating
                 if (rating == rat){
                     //the counter is used to determine whether or not any albums were returned
                     albumCounter += 1;
@@ -103,7 +117,7 @@ public class Playlist{
                     String art = albumList.get(name).getArtist();
                     String gen = albumList.get(name).getGenre();
                     String ratString = albumList.get(name).assignRate(rat);
-                    UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString);
+                    UI.println("Name: " + name + " \nArtist: "+ art + " \nYear: " + pub + " \nGenre: " + gen + "\nRating: " + rat + " - " + ratString + "\n");
                 }
             }   
             } catch (ArithmeticException ratingRange) {
@@ -141,18 +155,19 @@ public class Playlist{
         String rateName = UI.askString("What Album would you like to Rate? ");
         try {
             int rat = albumList.get(rateName).getRating();
-            if (rat == 0){
+            if (rat == INITIALRATE){
                 UI.println(rateName + " is currently not yet rated");
             } else {
                 UI.println(rateName + " currently has a rating of: " + rat + "/3 stars.");
             }
             try {
                 int newRating = UI.askInt("How many stars would you rate " + rateName + " ? (1-3 stars) ");
-                if (newRating < 0 || newRating > 3) {
+                if (newRating < MINRATE || newRating > MAXRATE) {
                     throw new ArithmeticException();
                 } else {
                     newRating = albumList.get(rateName).updateRating(newRating);
                     String ratString = albumList.get(rateName).assignRate(newRating);
+                    recommendAlbum(newRating, rateName);
                     UI.println(rateName + "'s rating has changed to: " + newRating + " - " + ratString);
                 }
             } catch (ArithmeticException incorrectStars) {
@@ -166,6 +181,30 @@ public class Playlist{
             //Runs if user inputs an album that does not exist in the database
             UI.println("That album is not in our database");
         }
+    }
+    
+    /**
+     * Will recommend an album to the user based on the rating and the genre
+     */
+    public void recommendAlbum(int rat, String rateName){
+        printCounter = 0;
+        if (rat > 1){
+            for (String name : albumList.keySet()){
+                int recRating = albumList.get(name).getRating();
+                if (recRating == 0 && name != rateName){
+                    albumKeys.add(name);
+                }
+            }
+        }
+        String name = albumKeys.get(printCounter);
+        String art = albumList.get(albumKeys.get(printCounter)).getArtist();
+        int pub = albumList.get(albumKeys.get(printCounter)).getYear();
+        String gen = albumList.get(albumKeys.get(printCounter)).getGenre();
+        int printRat = albumList.get(albumKeys.get(printCounter)).getRating();
+        String ratString = albumList.get(rateName).assignRate(printRat);
+        UI.drawString("You might also like:", PRINTSTRING, PRINTSTRING);
+        UI.drawString(name + " by " + art, PRINTSTRING, PRINTSTRING + 25);
+        UI.drawString(pub + "     " + printRat + " - " + ratString, PRINTSTRING, PRINTSTRING + 50);
     }
 }
 
