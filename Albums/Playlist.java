@@ -196,6 +196,7 @@ public class Playlist{
      * Will recommend an album to the user based on the rating and the genre
      */
     public void recommendAlbum(int rat, String rateName, String checkGen){
+        albumKeys.clear(); 
         if (rat > 1){
             for (String name : albumList.keySet()){
                 int recRating = albumList.get(name).getRating();
