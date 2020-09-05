@@ -40,6 +40,8 @@ public class Playlist{
     private static int starRating = 0;
     private static String starName = "";
     private boolean ratedAlbum = false;
+    private static final int SKIPX = 150;
+    private static final int SKIPY = 175;
     /**
      * Constructor for objects in the class; "Albums"
      */
@@ -212,7 +214,7 @@ public class Playlist{
                 //will throw an error if no albums are stored in the arraylist
                 throw new ArithmeticException();
             } else {
-                for (int printCounter = 0; printCounter <= printArr; printCounter++){
+                for (int printCounter = 0; printCounter <= (printArr-1); printCounter++){
                     ratedAlbum = false;
                     UI.clearGraphics();
                     String name = albumKeys.get(printCounter);
@@ -221,12 +223,16 @@ public class Playlist{
                     String gen = albumList.get(albumKeys.get(printCounter)).getGenre();
                     int printRat = albumList.get(albumKeys.get(printCounter)).getRating();
                     String ratString = albumList.get(rateName).assignRate(printRat);
-                    UI.drawString("Displaying:" + (printCounter + 1) + "/" + printArr, PRINTSTRING, PRINTSTRING - 50);
-                    UI.drawString("You might also like:", PRINTSTRING, PRINTSTRING);
-                    UI.drawString(name + " by " + art, PRINTSTRING, PRINTSTRING + 25);
-                    UI.drawString(pub + "     " + printRat + " - " + ratString, PRINTSTRING, PRINTSTRING + 50);
+                    UI.drawString("Displaying:" + (printCounter + 1) + "/" + printArr, PRINTSTRING+50, PRINTSTRING - 50);
+                    UI.drawString("You might also like:", PRINTSTRING+50, PRINTSTRING);
+                    UI.drawString(name + " by " + art, PRINTSTRING+50, PRINTSTRING + 25);
+                    UI.drawString(pub + "     " + printRat + " - " + ratString, PRINTSTRING+50, PRINTSTRING + 50);
+                    UI.drawString("Skip Album", PRINTSTRING+50, PRINTSTRING+75);
                     while (ratedAlbum == false){
                         stars(name);
+                    }
+                    if (ratedAlbum == true){
+                        UI.clearGraphics();
                     }
                 }
             }
@@ -259,6 +265,10 @@ public class Playlist{
                     SendRatingBack();
                     ratedAlbum = true;
                 }
+            }
+            if (x >= SKIPX && x <= SKIPX + 30 && y >= SKIPY- 10 && y <= SKIPY + 10){
+                UI.println(starName + " was not rated");
+                ratedAlbum = true;
             }
         }
     }
