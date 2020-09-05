@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Star
+comment0.text=\r\n\ Class\ star\ will\ print\ stars\ on\ the\ screen\ during\ a\ recommendation.\r\n\r\n\ @author\ Nathan\ Kaffes\r\n\ @version\ 0.01\r\n
+comment1.params=x\ y
+comment1.target=Star(double,\ double)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Star\r\n
+comment2.params=
+comment2.target=void\ drawStar()
+comment2.text=\r\n\ will\ draw\ a\ star\ 3\ times\ on\ the\ recommendation\ screen\r\n
+comment3.params=x\ y
+comment3.target=boolean\ onStar(double,\ double)
+comment3.text=\r\n\ Returns\ true\ and\ the\ co-ordinates\ if\ clicked\ on\ a\ star\r\n
+numComments=4

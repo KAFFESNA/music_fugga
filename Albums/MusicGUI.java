@@ -21,13 +21,17 @@ public class MusicGUI{
     private double chosenSlide;
     private final double RATEMIN = 0;
     private final double RATEMAX = 3;
+    private final int CANVASWIDTH = 1000;
+    private final int CANVASHEIGHT = 500;
     //This constant is the set rating in the beginning, it is changeable with the Rating button
     private final int STARTRATE = 0;
+    private boolean pubRight;
     /**
      * Initialises the GUI and sets all of the buttons
      */
     public MusicGUI(){
         UI.initialise();
+        UI.setWindowSize(CANVASWIDTH, CANVASHEIGHT);
         //button to add an album
         UI.addButton("Add Album", this::newAlbum);
         //text field to input an album name, button is below the text field, you can also click genre button for a search by genre feature
@@ -40,6 +44,7 @@ public class MusicGUI{
         UI.addButton("Search All", this::searchAll);
         UI.addButton("Rate Album", this::rateAlbum);
         UI.addButton("Quit", UI::quit);
+        UI.setDivider(0.0);     // must come after setting up buttons etc.
     }
     
     /**
@@ -48,10 +53,21 @@ public class MusicGUI{
     public void newAlbum(){
         //clears the output field
         UI.clearText();
+        pubRight = false;
+        int pub = 0;
         //asks for each part of the hashmap relating to a specific album
         String name = UI.askString("Please enter Album Name: ");
         String art = UI.askString("Please the Album's Artist's name: ");
-        int pub = UI.askInt("Please enter the Album's Year of Publication: ");
+        while (pubRight == false){
+            pub = UI.askInt("Please enter the Album's Year of Publication: ");
+            int pubLen = Integer.toString(pub).length();
+            if (pubLen != 4){
+                UI.println("Publication Year must have 4 digits in it");
+                pubRight = false;
+            } else {
+                pubRight = true;
+            }
+        }
         String gen = UI.askString("Please enter the Album's Genre: ");
         int rat = STARTRATE;
         //calls the addAlbum method to put the album in the hashmap
