@@ -37,9 +37,11 @@ public class Playlist{
     //positioning the stars
     private static final int LEFT = 100;
     private static final int TOP = 300;
+    //sets variables out of the method to transfer without problems
     private static int starRating = 0;
     private static String starName = "";
     private boolean ratedAlbum = false;
+    //skip button coordinates
     private static final int SKIPX = 150;
     private static final int SKIPY = 175;
     /**
@@ -48,8 +50,8 @@ public class Playlist{
     public Playlist(){
         //initialising the Albums hashmap
         albumList = new HashMap<String, Album>();
-        //testing the hashmap by manually implementing an album
-        albumList.put("Thriller", new Album("Michael Jackson", 1982, "Pop", 0));
+        //testing the hashmap by manually implementing an album (not needed, final version)
+        //albumList.put("Thriller", new Album("Michael Jackson", 1982, "Pop", 0));
     }
     
     /**
@@ -199,15 +201,18 @@ public class Playlist{
      */
     public void recommendAlbum(int rat, String rateName, String checkGen){
         albumKeys.clear(); 
+        //will only run if the rating on the original album is above 1
         if (rat > 1){
             for (String name : albumList.keySet()){
                 int recRating = albumList.get(name).getRating();
                 String rateGen = albumList.get(name).getGenre();
                 if ((recRating == 0) && (name != rateName) && (checkGen.equals(rateGen))){
+                    //will only add the album to the ArrayList if album meets requirements
                     albumKeys.add(name);
                 }
             }
         }
+        //stores the size of the ArrayList in a variable
         int printArr = albumKeys.size();
         try{
             if (printArr == 0){
@@ -217,12 +222,14 @@ public class Playlist{
                 for (int printCounter = 0; printCounter <= (printArr-1); printCounter++){
                     ratedAlbum = false;
                     UI.clearGraphics();
+                    //grabs all information for the album
                     String name = albumKeys.get(printCounter);
                     String art = albumList.get(albumKeys.get(printCounter)).getArtist();
                     int pub = albumList.get(albumKeys.get(printCounter)).getYear();
                     String gen = albumList.get(albumKeys.get(printCounter)).getGenre();
                     int printRat = albumList.get(albumKeys.get(printCounter)).getRating();
                     String ratString = albumList.get(rateName).assignRate(printRat);
+                    //displays album in the Graphics Pane
                     UI.drawString("Displaying:" + (printCounter + 1) + "/" + printArr, PRINTSTRING+50, PRINTSTRING - 50);
                     UI.drawString("You might also like:", PRINTSTRING+50, PRINTSTRING);
                     UI.drawString(name + " by " + art, PRINTSTRING+50, PRINTSTRING + 25);
@@ -231,6 +238,7 @@ public class Playlist{
                     while (ratedAlbum == false){
                         stars(name);
                     }
+                    //clears graphics when rated album
                     if (ratedAlbum == true){
                         UI.clearGraphics();
                     }
@@ -260,19 +268,25 @@ public class Playlist{
     public void manageMouse(String mouseAction, double x, double y){
         if (mouseAction.equals("clicked")){
             for (int starCounter = 0; starCounter < MAXSTARS; starCounter++){
+                //if clicked on any stars coordinates, will run this code depending on which one was clicked
                 if (this.stars[starCounter].onStar(x, y) == true){
                     starRating = (starCounter + 1);
                     SendRatingBack();
                     ratedAlbum = true;
                 }
             }
+            //will skip an album if clicked in this area of the graphics pane
             if (x >= SKIPX && x <= SKIPX + 30 && y >= SKIPY- 10 && y <= SKIPY + 10){
                 UI.println(starName + " was not rated");
                 ratedAlbum = true;
             }
         }
     }
+    /**
+     * Updates the rating in the Hashmap based on the the clicked star.
+     */
     public void SendRatingBack(){
+        //updates the rating and then prints it in the shell
         int printrat = albumList.get(starName).updateRating(starRating);
         String ratString = albumList.get(starName).assignRate(starRating);
         UI.println(starName + "'s rating has changed to: " + starRating + " - " + ratString);

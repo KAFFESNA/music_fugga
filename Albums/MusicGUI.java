@@ -19,8 +19,10 @@ public class MusicGUI{
     //these variables store the text fields information for the 
     private String chosenEntry;
     private double chosenSlide;
+    //sets the max and min ratings possible
     private final double RATEMIN = 0;
     private final double RATEMAX = 3;
+    //set the canvas proportions
     private final int CANVASWIDTH = 1000;
     private final int CANVASHEIGHT = 500;
     //This constant is the set rating in the beginning, it is changeable with the Rating button
@@ -42,6 +44,7 @@ public class MusicGUI{
         UI.addButton("Search by Rating", this::searchRating);
         //button to search for all albums in the hashmap
         UI.addButton("Search All", this::searchAll);
+        //lets you rate an album and get recommendations
         UI.addButton("Rate Album", this::rateAlbum);
         UI.addButton("Quit", UI::quit);
         UI.setDivider(0.0);     // must come after setting up buttons etc.
@@ -58,6 +61,7 @@ public class MusicGUI{
         //asks for each part of the hashmap relating to a specific album
         String name = UI.askString("Please enter Album Name: ");
         String art = UI.askString("Please the Album's Artist's name: ");
+        //will check the length of the year, if not 4 digits, will repeat askInt
         while (pubRight == false){
             pub = UI.askInt("Please enter the Album's Year of Publication: ");
             int pubLen = Integer.toString(pub).length();

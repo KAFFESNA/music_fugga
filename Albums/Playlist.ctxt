@@ -9,6 +9,7 @@ comment10.target=void\ manageMouse(java.lang.String,\ double,\ double)
 comment10.text=\r\n\ Checks\ for\ mouse\ input\r\n
 comment11.params=
 comment11.target=void\ SendRatingBack()
+comment11.text=\r\n\ Updates\ the\ rating\ in\ the\ Hashmap\ based\ on\ the\ the\ clicked\ star.\r\n
 comment2.params=name\ art\ pub\ gen\ rat
 comment2.target=void\ addAlbum(java.lang.String,\ java.lang.String,\ int,\ java.lang.String,\ int)
 comment2.text=\r\n\ Will\ add\ an\ album\ to\ the\ hashmap\r\n\ @param\ name\ \ The\ name\ of\ the\ album\r\n\ @param\ art\ \ \ The\ artist\ for\ the\ album\r\n\ @param\ pub\ \ \ The\ year\ of\ publication\r\n\ @param\ gen\ \ \ The\ genre\ of\ said\ album\r\n\ @param\ rat\ \ \ The\ rating\ of\ said\ album\r\n

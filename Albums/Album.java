@@ -19,6 +19,7 @@ public class Album {
     private int year;
     private String genre;
     private int rating;
+    //stores the strings for each rating, used in assignRate
     private String[] ratingStrings = {"Not Yet Rated", "Bad", "Average", "Good"};
     private String ratString;
     

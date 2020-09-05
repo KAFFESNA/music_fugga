@@ -34,6 +34,7 @@ public class Star {
      * will draw a star 3 times on the recommendation screen
      */
     public void drawStar() {
+        //draws the star
         UI.drawImage("img\\star.png", this.posX, this.posY, SIZE, SIZE);
     }
     
@@ -41,6 +42,7 @@ public class Star {
      * Returns true and the co-ordinates if clicked on a star
      */
     public boolean onStar(double x, double y){
+        //depending on the x and y values of the click on the graphics pane, will return either true or false
         if (x >= this.posX && x <= this.posX + SIZE && y >= this.posY && y <= this.posY + SIZE){
             return true;
         } else {
